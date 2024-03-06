@@ -1,21 +1,55 @@
 '''
-Given an array of positive numbers and a positive number ‘k’, find the maximum sum of any contiguous subarray of size ‘k’. Example 1:
+Given an array of positive numbers and a positive number ‘k’.
+Find the maximum sum of any contiguous subarray of size ‘k’.
 
-Input: [2, 1, 5, 1, 3, 2], k=3 
-Output: 9
+Example 1:
 
-Explanation: Subarray with maximum sum is [5, 1, 3].
+	Input: [2, 1, 5, 1, 3, 2], k=3 
+	
+	Output: 9
+
+	Explanation: Subarray with maximum sum is [5, 1, 3].
 
 '''
 
-''' 
-	observation
-		window size is fixed
 
-	we are checking if second_pointer exceeds window size
-	window_size = (second_pointer-first_pointer)+1
 '''
-def solution(nums, k):
+Solution 1: Brute Force Approach
+	
+	outer loop from i=0 to i=end of string
+	   inner loop from j=i to j=end of string
+	      if window_size === k
+	      	 result = max(result, window_sum)
+'''
+
+def bruteForceSolution(array, k):
+    result = 0
+    for i in range(len(array)):
+        window_sum = 0
+        for j in range(i, len(array)):
+            window_sum += array[j]
+            
+            if ((j-i)+1  == k):
+                result = max(result, window_sum)
+    return result
+
+
+print("Result using BruteForceSolution: ", bruteForceSolution([2, 1, 5, 1, 3, 2], 3))
+
+"""
+Solution 2: Optimized Approach 1
+	
+	second_pointer will increase the window_sum
+
+	if window_size > k:
+		subtract array[first_pointer] from the window sum
+		
+		increase the first_pointer
+	
+	result = max(result, window_sum)
+"""
+
+def mainSolution(array, k):
 
 	first_pointer = 0
 	second_pointer = 0
@@ -24,14 +58,12 @@ def solution(nums, k):
 
 	result = 0
 
-	for second_pointer in range(len(nums)):
+	for second_pointer in range(len(array)):
 
-		window_sum += nums[second_pointer]		
+		window_sum += array[second_pointer]
 
-		window_size = (second_pointer-first_pointer)+1
-
-		if window_size > k:
-			window_sum -= nums[first_pointer]
+		if (second_pointer-first_pointer)+1 > k:
+			window_sum -= array[first_pointer]
 			first_pointer +=1
 
 		
@@ -40,9 +72,16 @@ def solution(nums, k):
 	return result
 
 
+print("Result using mainSolution: ", mainSolution([2, 1, 5, 1, 3, 2], 3))
 
-# we are checking if second_pointer exceeds index
-def solution2(nums, k):
+
+'''
+Solution 3: Optimized Approach 2
+	
+	we can also increase first_pointer if second_pointer > k -1
+
+'''
+def solution2(array, k):
 
 	first_pointer = 0
 	second_pointer = 0
@@ -51,12 +90,12 @@ def solution2(nums, k):
 
 	result = 0
 
-	for second_pointer in range(len(nums)):
+	for second_pointer in range(len(array)):
 
-		window_sum += nums[second_pointer]		
+		window_sum += array[second_pointer]		
 	
 		if second_pointer > k-1:
-			window_sum -= nums[first_pointer]
+			window_sum -= array[first_pointer]
 			first_pointer +=1
 
 		
@@ -64,6 +103,4 @@ def solution2(nums, k):
 
 	return result
 
-
-print('Result1: ', solution([2, 1, 5, 1, 3, 2], 3))
-print('Result2: ', solution2([2, 1, 5, 1, 3, 2], 3))
+print("Result using Solution2: ", solution2([2, 1, 5, 1, 3, 2], 3))

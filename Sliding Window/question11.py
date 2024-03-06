@@ -134,3 +134,45 @@ def solution2(string, pattern):
 
 
 print('Result: ', solution2('ADOBECODEBANC', 'ABC'))
+
+
+
+# temp
+
+def solution(array, pattern):
+    
+    first_pointer = 0
+    second_pointer = 0
+    
+    map = {}
+    
+    for char in pattern:
+        if char not in map:
+            map[char] = 1
+        else:
+            map[char] += 1
+        
+    
+    match = 0
+    result = len(array)
+    
+    for second_pointer in range(len(array)):
+        
+        if array[second_pointer] in map:
+            match += 1
+        
+        while match > len(pattern):
+            
+            if array[first_pointer] in map:
+                match -= 1
+            
+            first_pointer += 1
+            
+        
+        result = min(result, (second_pointer-first_pointer)+1)
+    
+    
+            
+    return array[first_pointer:second_pointer+1]
+    
+print('ANS: ', solution("ADOBECODEBANC", "ABC"))

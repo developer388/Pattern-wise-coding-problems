@@ -4,32 +4,48 @@ Given a string and a pattern, find out if the string contains any permutation of
 
 Example 1:
 
-Input: String="oidbcaf", Pattern="abc"
-Output: true
-Explanation: The string contains "bca" which is a permutation of the given pattern.
+    Input: String="oidbcaf", Pattern="abc"
+    
+    Output: true
+    
+    Explanation: The string contains "bca" which is a permutation of the given pattern.
 
 
-https://leetcode.com/problems/permutation-in-string/
-'''
-'''
- Observation :
-
-    1. window size is fixed
-    2. maintain a character frequency map for pattern
-    3. if second_pointer match with character in frequency map
-            increment the match counter
-    4. if second_pointer > len(pattern) - 1
-            start incrementing first_pointer
-
-            if first_pointer matches with character in frequency map
-                decrement the match counter 
-                as we are removing this character from the window
-    5. if match == len(pattern)
-         we have found the match
+Leetcode URL : https://leetcode.com/problems/permutation-in-string/
 
 '''
 
-def solution2(pattern, string):
+'''
+Solution 1: Optimized Approach 1
+    
+    Approach Info:
+        window size is fixed
+        
+        first build a frequency map for pattern
+            
+        maintain a "match_count" variable
+
+        if second_pointer match with character in frequency map
+                
+                decrement the character frequency
+                
+                if character frequency >= 0        // because frequency may go negative
+                    increment the match counter
+        
+        if second_pointer > len(pattern) - 1
+
+                if first_pointer matches with character in frequency map
+                    decrement the match counter 
+                    as we are removing this character from the window
+
+                    increment the first_pointer
+
+        if match == len(pattern)
+             return True
+
+'''
+
+def mainSolution(pattern, string):
 
     map = {}
 
@@ -40,28 +56,26 @@ def solution2(pattern, string):
             map[char] += 1
 
     first_pointer = 0
+   
     second_pointer = 0
+   
     match = 0
 
     for second_pointer in range(len(string)):
 
-        second_ptr_char = string[second_pointer]
-
-        if second_ptr_char in map:
-            map[second_ptr_char] -= 1
+        if string[second_pointer] in map:
+            map[string[second_pointer]] -= 1
             
-            if map[second_ptr_char] >= 0:
+            if map[string[second_pointer]] >= 0:
                 match+=1
         
         if second_pointer > (len(pattern)-1):
-            
-            first_ptr_char = string[first_pointer]
-
-            if first_ptr_char in map:
-                if map[first_ptr_char] >= 0:
+    
+            if string[first_pointer] in map:
+                if map[string[first_pointer]] >= 0:
                     match -= 1
                 
-                map[first_ptr_char] +=1
+                map[string[first_pointer]] +=1
 
             first_pointer+=1
 
@@ -71,4 +85,4 @@ def solution2(pattern, string):
     return False
 
 
-print('Result: ', solution2('aab', 'aaodaaicf'))
+print('Result using MainSolution:', mainSolution('iaa', 'aaodaaicf'))

@@ -1,64 +1,105 @@
 '''
-
 Given a string, find the length of the longest substring
  in it with no more than K distinct characters.
 
 Example 1:
 
-Input: String="araaci", K=2
-Output: 4
-Explanation: The longest substring with no more than '2' distinct characters is "araa".
+	Input: String="araaci", K=2
+
+	Output: 4
+
+	Explanation: The longest substring with no more than '2' distinct characters is "araa".
 
 '''
+
 '''
-	observation
+Solution 1: Brute Force Approach
+
+   use a set 
+
+	outer loop from i=0 to i=end of string
+	   inner loop from j=i to j=end of string
+	      if unique_characters in substring <= k
+	      	 result = max(result, len(substring))
+
+'''
+def bruteForceSolution(arr, k):
+    
+    result = 0
+    
+    for i in range(len(arr)):
+        
+        word = ''
+        
+        for j in range(i, len(arr)):
+            
+            word += arr[j]
+            
+            distinct_chars = len(set(word))
+            
+            if distinct_chars <= k:
+                result = max(result, len(word))
+            
+            
+    return result
+ 
+    
+print("Result using BruteForceSolution: ", bruteForceSolution('araaci', 2))
+
+
+'''
+Solution 2: Optimized Approach 1
+    
+    Approach Info:
 
 		window size is not fixed
 
-		for char frequency we can use a map, if len(map)> k, update size of longest substring
+		use a hashmap
 
-		if we encouter new charachter we will start shrinking window, at ith second pointer
-		second pointer will remain fixed. we can use a while loop to increment the first_pointer
+		second pointer will add a character to the map
+		
+		if len(hashmap) > k
+			decrement character frequency pointed by first_pointer
+			if character frequency becomes 0, then delete it from map
 
+		    increment the first_pointer
 
+		result = max(result, window_size)
 '''
 
 
-
-def solution(string, k):
-
+def mainSolution(string, k):
 
 	first_pointer  = 0
 	second_pointer = 0
 
-	char_frequencey = {}
+	map = {}
 
-	maximum_substring_length = 0
+	result = 0
 
 	for second_pointer in range(len(string)):
 
-		if string[second_pointer] not in char_frequencey:
-			char_frequencey[string[second_pointer]] = 1
+		if string[second_pointer] not in map:
+			map[string[second_pointer]] = 1
 		else: 
-			char_frequencey[string[second_pointer]] += 1
+			map[string[second_pointer]] += 1
 		
-		while len(char_frequencey)>k:
-			char_frequencey[string[first_pointer]] -= 1
+		if len(map) > k:
+			
+			map[string[first_pointer]] -= 1
 
-			if char_frequencey[string[first_pointer]] == 0:
-				del char_frequencey[string[first_pointer]]
+			if map[string[first_pointer]] == 0:
+				del map[string[first_pointer]]
 
 			first_pointer += 1
 
-		maximum_substring_length = max(maximum_substring_length, (second_pointer-first_pointer)+1)
+		result = max(result, (second_pointer-first_pointer)+1)
 
-		
-
-	return maximum_substring_length
+	return result
 
 
-print('Result: ', solution('araaciiiiiiii', 2))
+print('Result: ', mainSolution('araaciiiiiiii', 2))
 
-print('Result: ', solution('ababcbcbaa', 2))
+print('Result: ', mainSolution('ababcbcbaa', 2))
 
 
