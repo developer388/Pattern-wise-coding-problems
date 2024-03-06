@@ -1,87 +1,84 @@
 '''
 Write a function to return a list of starting indices of the anagrams of the pattern 
 in the given string.
-Example 1:
 
-Input: String="ppqp", Pattern="pq"
-Output: [1, 2]
-Explanation: The two anagrams of the pattern in the given string are "pq" and "qp".
+Example 1:
+    Input: String="ppqp", Pattern="pq"
+    Output: [1, 2]
+    Explanation: The two anagrams of the pattern in the given string are "pq" and "qp".
 
 Example 2:
-
-Input: String="abbcabc", Pattern="abc"
-Output: [2, 3, 4]
-Explanation: The three anagrams of the pattern in the given string are "bca", "cab", and "abc".
-
-
-Observation:
-	1. window size is fixed
-    2. maintain a character frequency map for pattern
-    3. if second_pointer match with character in frequency map
-            increment the match counter
-    4. if second_pointer > len(pattern) - 1
-            start incrementing first_pointer
-
-            if first_pointer matches with character in frequency map
-                decrement the match counter 
-                as we are removing this character from the window
-    5. if match == len(pattern)
-         push the first_pointer to result array
-
-
+    Input: String="abbcabc", Pattern="abc"
+    Output: [2, 3, 4]
+    Explanation: The three anagrams of the pattern in the given string are "bca", "cab", and "abc".
 '''
 
 
-def solution(string, pattern):
+'''
+Solution 1: Optimized Approach 1
+    
+    window size is fixed
+    
+    maintain a character map for pattern
+    
+    if second_pointer match with pattern_map
+        if array[second_pointer] >= 1
+            increment the match counter
 
-	print('string: ', string, ' pattern:', pattern)
+        decrement the array[second_pointer] frequency in map
 
-	map = {}
-	for char in pattern:
-		if char not in map:
-			map[char] = 1
-		else:
-			map[char] += 1
+    if second_pointer > len(pattern) - 1
+           we need to increment the first_pointer to maintain a fixed size window
+
+           if array[first_pointer] match with pattern_map
+                if array[first_pointer] >= 0     
+                    decrement the match counter
+
+                increment the array[first_pointer] frequency in map
+   
+   if match == len(pattern)
+         push the first_pointer to result array
+'''
+
+def mainSolution(string, pattern):
+
+    first_pointer = 0
+    second_pointer = 0
+    
+    map = {}
+    
+    result = []
+    
+    for char in pattern:
+        if char not in map:
+            map[char] = 1
+        else:
+            map[char] += 1
+            
+    match = 0
+
+    for second_pointer in range(len(string)):
+        
+        if string[second_pointer] in map:
+            if map[string[second_pointer]] >= 1:
+                match += 1
+            
+            map[string[second_pointer]] -= 1
+        
+        if second_pointer > (len(pattern)-1):
+            if string[first_pointer] in map:
+                if map[string[first_pointer]] >= 0: 
+                    match -= 1
+                
+                map[string[first_pointer]] += 1
+            
+            first_pointer += 1
+        
+
+        if match == len(pattern):
+            result.append(first_pointer)
+
+    return result
 
 
-	first_pointer = 0
-	second_pointer = 0
-	match = 0
-
-	result = []
-
-	for second_pointer in range(len(string)):
-
-		second_ptr_char = string[second_pointer]
-
-		if second_ptr_char in map:
-			map[second_ptr_char] -= 1
-			
-			if map[second_ptr_char] >= 0:
-				match += 1
-
-
-		#start moving first pointer when second pointer exceeds
-		#length of patter - 1
-		if second_pointer > (len(pattern)-1):
-
-			first_ptr_char = string[first_pointer]
-
-			if first_ptr_char in map:
-				if map[first_ptr_char] >= 0:
-					match -= 1
-
-				map[first_ptr_char] += 1
-			
-			first_pointer += 1
-
-
-		if match == len(pattern):
-			result.append(first_pointer)
-
-	return result
-
-
-
-
-print('Solution: ', solution('abbcabc', 'abc'))
+print('Result using mainSolution:', mainSolution('abbcabc', 'abc'))
