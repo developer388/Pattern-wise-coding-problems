@@ -4,18 +4,29 @@ Write a function to return the indices of the two numbers (i.e. the pair) such t
 
 Example 1:
 
-Input: [1, 2, 3, 4, 6], target=6
-Output: [1, 3]
-Explanation: The numbers at index 1 and 3 add up to 6: 2+4=6
+	Input: [1, 2, 3, 4, 6], target=6
+
+	Output: [1, 3]
+
+	Explanation: The numbers at index 1 and 3 add up to 6: 2+4=6
 
 Example 2:
 
-Input: [2, 5, 9, 11], target=11
-Output: [0, 2]
-Explanation: The numbers at index 0 and 2 add up to 11: 2+9=11
+	Input: [2, 5, 9, 11], target=11
+	
+	Output: [0, 2]
+	
+	Explanation: The numbers at index 0 and 2 add up to 11: 2+9=11
+
+Leetcode URL: https://leetcode.com/problems/two-sum/
+
+'''
 
 
-Approach:
+'''
+Solution 1: Optimized Approach 1
+	
+	As array is sorted, we can start pointer from start and end.
 
 	start first_pointer from beginning
 	start second_pointer from end
@@ -32,8 +43,7 @@ Approach:
 
 
 
-
-def solution(array, target):
+def mainSolution(array, target):
 
 	first_pointer = 0
 	second_pointer = len(array) - 1
@@ -51,7 +61,7 @@ def solution(array, target):
 
 
 
-print('Solution: ', solution([1, 2, 3, 4, 6], 6))
+print("Result using mainSolution: ", mainSolution([1, 2, 3, 4, 6], 6))
 
-print('Solution:', solution( [2, 5, 9, 11],1))
+print("Result using mainSolution: ", mainSolution([2, 5, 9, 11], 1))
 
