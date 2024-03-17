@@ -5,7 +5,6 @@ remove all instances of ‘key’ in-place and return the new length of the arra
 Example 1:
 
 	Input: [3, 2, 3, 6, 3, 10, 9, 3], Key=3
-		   [2,6,3]
 
 	Output: 4
 
@@ -36,6 +35,10 @@ Solution 1: Optimized Approach 1
 	
 	return window_sum
 
+
+Time Complexity: O(n)
+
+The for loop iterates over each element of the array once, resulting in O(n) iterations.
 '''
 
 def mainSolution(array, key):

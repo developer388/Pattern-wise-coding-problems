@@ -32,6 +32,11 @@ Solution 1: Optimized Approach 1
 		increment the first_pointer and sets its value to second_pointer
 
 	return window sum
+
+
+Time Complexity: O(n)
+
+The for loop iterates over each element of the array once, resulting in O(n) iterations.
 '''
 
 

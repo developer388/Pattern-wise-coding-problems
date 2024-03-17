@@ -39,6 +39,10 @@ Solution 1: Optimized Approach 1
 	if sum_of_pointer is less than target
 	    increment the first_pointer
 
+
+Time Complexity: O(n)
+
+The while loop iterates over each element of the array once, resulting in O(n) iterations.
 '''
 
 

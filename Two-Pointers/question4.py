@@ -18,6 +18,33 @@ Example 2:
 Leetcode URL: https://leetcode.com/problems/squares-of-a-sorted-array/
 '''
 
+
+'''
+Solution 1: Brute Force Approach
+
+In this approach we are simply calculating the square of ith no. and store it in place in given array.
+
+then, we are sorting the array to have square's in sorted form
+
+Time complexity: O(n logn)
+
+'''
+
+def bruteForceSolution(array):
+    
+    for i in range(len(array)):
+        array[i] =  pow(array[i], 2)
+            
+    array.sort()
+    
+    return array
+
+print("Result using BruteForceSolution: ", bruteForceSolution([-2, -1, 0, 2, 3]))
+
+
+
+
+
 '''
 Solution 2: Optimized Approach 1
 	
@@ -33,6 +60,10 @@ Solution 2: Optimized Approach 1
 	A result_index can be used to insert the value value in result array starting from the end till 0th index.
 
 	we can compare the abs values of first_pointer and second_pointer, and add the square to the result_pointer index in result array
+
+Time Complexity: O(n)
+
+The while loop iterates over each element of the array once, resulting in O(n) iterations.
 '''
 
 
