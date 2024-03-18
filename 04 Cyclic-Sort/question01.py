@@ -23,27 +23,23 @@ Output: [1, 2, 3, 4, 5, 6]
 
 '''
 
-def solution(array):
-
-	i = 0
+def mainSolution(arr):
 	
-	while i < len(array):
-		j = array[i]-1
+	i = 0
 
-		print(i, array[i], j)
+	while i < len(arr):
+	    
 
-		if array[i]!=array[j]:
-			array[i], array[j] = array[j], array[i]			
-		else:
-			i+=1
-
-	return array
-
-
-
-
-
-
-print('Result: ', solution( [3, 1, 5, 4, 2]))
-# print('Result: ', solution( [2, 6, 4, 3, 1, 5]))
-# print('Result: ', solution( [1, 5, 6, 4, 3, 2]))
+	    correct_index = arr[i] - 1
+	    
+	    if correct_index != i:
+	        arr[i], arr[correct_index] = arr[correct_index], arr[i]
+	    else:
+	       i+=1
+	       
+	return arr
+	
+ 
+print("Result using mainSolution: ", mainSolution([3, 1, 5, 4, 2]))
+print("Result using mainSolution: ", mainSolution( [2, 6, 4, 3, 1, 5]))
+print("Result using mainSolution: ", mainSolution( [1, 5, 6, 4, 3, 2]))
