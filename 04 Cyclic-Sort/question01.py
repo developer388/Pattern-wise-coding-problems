@@ -23,16 +23,16 @@ Output: [1, 2, 3, 4, 5, 6]
 
 '''
 
+
 def mainSolution(arr):
 	
 	i = 0
 
 	while i < len(arr):
-	    
-
+	
 	    correct_index = arr[i] - 1
 	    
-	    if correct_index != i:
+	    if arr[i] != arr[correct_index]:
 	        arr[i], arr[correct_index] = arr[correct_index], arr[i]
 	    else:
 	       i+=1
